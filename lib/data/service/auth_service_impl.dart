@@ -1,5 +1,5 @@
 import 'package:random_users_surf/domain/model/auth_user.dart';
-import 'package:random_users_surf/domain/service/auth_service.dart';
+import 'package:random_users_surf/data/service/auth_service.dart';
 
 class AuthServiceImpl implements AuthService {
 
