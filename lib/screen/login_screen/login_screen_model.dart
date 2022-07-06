@@ -1,6 +1,6 @@
 import 'package:elementary/elementary.dart';
 import 'package:random_users_surf/app_model.dart';
-import 'package:random_users_surf/domain/service/auth_service.dart';
+import 'package:random_users_surf/data/service/auth_service.dart';
 
 class LoginScreenModel extends ElementaryModel {
   final AuthService _authService;
@@ -12,8 +12,6 @@ class LoginScreenModel extends ElementaryModel {
         _appModel = appModel;
 
   void loginUser(String login) {
-    _authService.login(login).then((authUser) {
-      _appModel.onChange(authUser);
-    });
+    _authService.login(login).then(_appModel.onChange);
   }
 }
