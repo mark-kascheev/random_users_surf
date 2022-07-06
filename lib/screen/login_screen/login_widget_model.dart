@@ -1,7 +1,7 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:random_users_surf/app_model.dart';
-import 'package:random_users_surf/domain/service/auth_service.dart';
+import 'package:random_users_surf/data/service/auth_service.dart';
 import 'package:random_users_surf/screen/login_screen/login_screen.dart';
 import 'package:random_users_surf/screen/login_screen/login_screen_model.dart';
 import 'package:random_users_surf/screen/users_screen/users_screen.dart';
