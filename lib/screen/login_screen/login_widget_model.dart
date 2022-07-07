@@ -38,7 +38,7 @@ class LoginWidgetModel extends WidgetModel<LoginScreen, LoginScreenModel> {
     buttonEnabled.value = false;
     if (_appModel.user != null) {
       Navigator.of(context)
-          .push(MaterialPageRoute(builder: (_) => const UsersScreen()));
+          .pushReplacement(MaterialPageRoute(builder: (_) => UsersScreen()));
     }
   }
 
