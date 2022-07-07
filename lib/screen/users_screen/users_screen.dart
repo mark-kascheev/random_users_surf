@@ -5,6 +5,6 @@ class UsersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(child: Center(child: Text('USERS SCREEN')),);
+    return const Center(child: Text('USERS SCREEN'));
   }
 }
