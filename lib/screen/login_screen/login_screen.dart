@@ -1,4 +1,5 @@
 import 'package:elementary/elementary.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:random_users_surf/screen/login_screen/login_widget_model.dart';
 
@@ -17,9 +18,14 @@ class LoginScreen extends ElementaryWidget<LoginWidgetModel> {
         const _GreetingText(),
         Padding(
             padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
-            child: _LoginInputField(wm)),
+            child: _LoginInputField(
+                controller: wm.loginFieldController,
+                onSubmitted: wm.onLoginPressed)),
         const Spacer(),
-        Padding(padding: const EdgeInsets.all(16), child: _LoginButton(wm: wm))
+        Padding(
+            padding: const EdgeInsets.all(16),
+            child: _LoginButton(
+                onPressed: wm.onLoginPressed, buttonEnabled: wm.buttonEnabled))
       ],
     ));
   }
@@ -38,24 +44,25 @@ class _GreetingText extends StatelessWidget {
 }
 
 class _LoginButton extends StatelessWidget {
-  final LoginWidgetModel wm;
+  final ValueListenable<bool> buttonEnabled;
+  final VoidCallback onPressed;
 
   const _LoginButton({
     Key? key,
-    required this.wm,
+    required this.buttonEnabled,
+    required this.onPressed,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: MediaQuery.of(context).size.width,
-      height: 50,
+      width: double.infinity,
       child: ValueListenableBuilder<bool>(
-          valueListenable: wm.buttonEnabled,
+          valueListenable: buttonEnabled,
           builder: (context, isEnabled, _) {
             return ElevatedButton(
                 style: ElevatedButton.styleFrom(primary: Colors.black),
-                onPressed: isEnabled ? wm.onLoginPressed : null,
+                onPressed: isEnabled ? onPressed : null,
                 child: const Text('Sign In', style: TextStyle(fontSize: 20)));
           }),
     );
@@ -63,16 +70,19 @@ class _LoginButton extends StatelessWidget {
 }
 
 class _LoginInputField extends StatelessWidget {
-  final LoginWidgetModel wm;
+  final TextEditingController controller;
+  final VoidCallback onSubmitted;
 
-  const _LoginInputField(this.wm, {Key? key}) : super(key: key);
+  const _LoginInputField(
+      {Key? key, required this.controller, required this.onSubmitted})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: wm.loginFieldController,
+      controller: controller,
       cursorColor: Colors.black,
-      onSubmitted: (_) => wm.onLoginPressed(),
+      onSubmitted: (_) => onSubmitted(),
       decoration: const InputDecoration(
           border: OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(8)),
