@@ -24,17 +24,13 @@ class LoginWidgetModel extends WidgetModel<LoginScreen, LoginScreenModel> {
   }
 
   void onTextChanged() {
-    if (_isInputLoginValid()) {
-      buttonEnabled.value = true;
-    } else {
-      buttonEnabled.value = false;
-    }
+    buttonEnabled.value = _isInputLoginValid();
   }
 
   void onLoginPressed() {
     if (_isInputLoginValid()) {
       buttonEnabled.value = true;
-      model.loginUser(loginFieldController.text);
+      model.loginUser(loginFieldController.text.trim());
     }
   }
 
@@ -47,11 +43,7 @@ class LoginWidgetModel extends WidgetModel<LoginScreen, LoginScreenModel> {
   }
 
   bool _isInputLoginValid() {
-    final inputLogin = loginFieldController.text.trim();
-    if (inputLogin.isEmpty) {
-      return false;
-    }
-    return true;
+    return loginFieldController.text.trim().isNotEmpty;
   }
 }
 
