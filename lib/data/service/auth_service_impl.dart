@@ -1,11 +1,13 @@
-import 'package:random_users_surf/domain/model/auth_user.dart';
 import 'package:random_users_surf/data/service/auth_service.dart';
+import 'package:random_users_surf/domain/model/auth_user.dart';
 
 class AuthServiceImpl implements AuthService {
-
   @override
   Future<AuthUser> login(String login) {
-    return Future.delayed(const Duration(seconds: 1), () => AuthUser(login: login));
+    return Future.delayed(
+      const Duration(seconds: 1),
+      () => AuthUser(login: login),
+    );
   }
 
   @override
