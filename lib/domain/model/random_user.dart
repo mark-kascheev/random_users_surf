@@ -7,13 +7,15 @@ class RandomUser {
   final String imageUrl;
   final int age;
 
-  RandomUser(
-      {required this.firstName,
-      required this.lastName,
-      required this.age,
-      required this.gender,
-      required this.phone,
-      required this.email, required this.imageUrl});
+  RandomUser({
+    required this.firstName,
+    required this.lastName,
+    required this.age,
+    required this.gender,
+    required this.phone,
+    required this.email,
+    required this.imageUrl,
+  });
 
   factory RandomUser.fromJson(Map<String, dynamic> json) => RandomUser(
       firstName: json['name']['first'] ?? '',
@@ -22,11 +24,16 @@ class RandomUser {
       gender: json['gender'] ?? '',
       phone: json['cell'] ?? '',
       email: json['email'] ?? '',
-      imageUrl: json['picture']['medium'] ?? ''
-  );
+      imageUrl: json['picture']['medium'] ?? '');
 
   @override
   String toString() {
     return 'RandomUser{firstName: $firstName, lastName: $lastName, age: $age, gender: $gender, phone: $phone, email: $email}';
   }
+
+  bool contains(String text) =>
+      firstName.contains(text) ||
+      lastName.contains(text) ||
+      email.contains(text) ||
+      phone.contains(text);
 }

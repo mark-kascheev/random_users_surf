@@ -13,7 +13,7 @@ void main() {
   getIt.registerSingleton<AppModel>(AppModel());
   getIt.registerSingleton<AuthService>(AuthServiceImpl());
   getIt.registerSingleton<UsersService>(UsersServiceImpl(
-      Dio(BaseOptions(baseUrl: 'https://randomuser.me/api/'))));
+      Dio(BaseOptions(baseUrl: baseUrl))));
   runApp(const MyApp());
 }
 
