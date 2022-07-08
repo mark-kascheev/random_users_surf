@@ -6,9 +6,10 @@ class LoginScreenModel extends ElementaryModel {
   final AuthService _authService;
   final AppModel _appModel;
 
-  LoginScreenModel(
-      {required AuthService authService, required AppModel appModel})
-      : _authService = authService,
+  LoginScreenModel({
+    required AuthService authService,
+    required AppModel appModel,
+  })  : _authService = authService,
         _appModel = appModel;
 
   void loginUser(String login) {
