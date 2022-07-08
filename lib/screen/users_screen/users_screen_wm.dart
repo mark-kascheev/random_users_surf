@@ -34,7 +34,7 @@ class UsersWidgetModel extends WidgetModel<UsersScreen, UsersScreenModel> {
     try {
       final users = await model.getUsers();
       _allUsers = users;
-      _listUsers.content(users);
+      await Future.delayed(Duration(seconds: 2), () =>_listUsers.content(users));
     } on Exception catch (err) {
       _listUsers.error(err, _allUsers);
     }
@@ -65,8 +65,13 @@ class UsersWidgetModel extends WidgetModel<UsersScreen, UsersScreenModel> {
 
   void logout() {
     model.logout();
-    Navigator.push(
+    Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (_) => const LoginScreen()));
+  }
+
+  void cleanSearchQuery() {
+    controller.text = '';
+    _listUsers.content(_allUsers);
   }
 
   void openUserDetails(RandomUser user) {
