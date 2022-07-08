@@ -17,9 +17,8 @@ class UsersWidgetModel extends WidgetModel<UsersScreen, UsersScreenModel> {
 
   ListenableState<EntityState<List<RandomUser>?>> get users => _listUsers;
   List<RandomUser> _allUsers = [];
-  final String userLogin;
 
-  UsersWidgetModel(super.model) : userLogin = model.userLogin;
+  UsersWidgetModel(super.model);
 
   @override
   void initWidgetModel() {
@@ -32,9 +31,8 @@ class UsersWidgetModel extends WidgetModel<UsersScreen, UsersScreenModel> {
   Future<void> _loadUsers() async {
     _listUsers.loading();
     try {
-      final users = await model.getUsers();
-      _allUsers = users;
-      _listUsers.content(users);
+      _allUsers = await model.getUsers();
+      _listUsers.content(_allUsers);
     } on Exception catch (err) {
       _listUsers.error(err, _allUsers);
     }
@@ -47,12 +45,7 @@ class UsersWidgetModel extends WidgetModel<UsersScreen, UsersScreenModel> {
       if (text.isNotEmpty) {
         _listUsers.loading();
 
-        final result = users
-            .where((user) => (user.firstName.contains(text) ||
-                user.lastName.contains(text) ||
-                user.email.contains(text) ||
-                user.phone.contains(text)))
-            .toList();
+        final result = users.where((user) => user.contains(text)).toList();
 
         _listUsers.content(result);
       }
@@ -71,6 +64,15 @@ class UsersWidgetModel extends WidgetModel<UsersScreen, UsersScreenModel> {
 
   void openUserDetails(RandomUser user) {
     // TODO add a navigation to user details
+  }
+
+  String? getUserLogin() {
+    try {
+      return model.userLogin!;
+    } catch (e) {
+      logout();
+      return '';
+    }
   }
 }
 

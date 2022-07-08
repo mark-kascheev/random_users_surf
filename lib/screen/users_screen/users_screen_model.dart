@@ -7,7 +7,7 @@ import 'package:random_users_surf/domain/model/random_user.dart';
 class UsersScreenModel extends ElementaryModel {
   final UsersService _service;
   final AppModel _appModel;
-  String get userLogin => _appModel.user?.login ?? ''; // Позволяет получить логин уже залогиненного пользователя
+  String? get userLogin => _appModel.user?.login; // Позволяет получить логин уже залогиненного пользователя
 
   UsersScreenModel({required UsersService service, required AppModel appModel}) : _service = service, _appModel = appModel;
 
