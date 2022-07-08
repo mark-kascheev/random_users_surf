@@ -7,23 +7,25 @@ class RandomUser {
   final String imageUrl;
   final int age;
 
-  RandomUser(
-      {required this.firstName,
-      required this.lastName,
-      required this.age,
-      required this.gender,
-      required this.phone,
-      required this.email, required this.imageUrl});
+  RandomUser({
+    required this.firstName,
+    required this.lastName,
+    required this.age,
+    required this.gender,
+    required this.phone,
+    required this.email,
+    required this.imageUrl,
+  });
 
   factory RandomUser.fromJson(Map<String, dynamic> json) => RandomUser(
-      firstName: json['name']['first'] ?? '',
-      lastName: json['name']['last'] ?? '',
-      age: json['dob']['age'] ?? '',
-      gender: json['gender'] ?? '',
-      phone: json['cell'] ?? '',
-      email: json['email'] ?? '',
-      imageUrl: json['picture']['medium'] ?? ''
-  );
+        firstName: (json['name'] as Map<String, dynamic>)['first'] as String,
+        lastName: (json['name'] as Map<String, dynamic>)['last'] as String,
+        age: (json['dob'] as Map<String, dynamic>)['age'] as int,
+        gender: json['gender'] as String,
+        phone: json['cell'] as String,
+        email: json['email'] as String,
+        imageUrl: (json['picture'] as Map<String, dynamic>)['medium'] as String,
+      );
 
   @override
   String toString() {
