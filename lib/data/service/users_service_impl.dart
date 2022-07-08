@@ -4,6 +4,8 @@ import 'package:dio/dio.dart';
 import 'package:random_users_surf/data/service/users_service.dart';
 import 'package:random_users_surf/domain/model/random_user.dart';
 
+const baseUrl = 'https://randomuser.me/api/';
+
 // Реализация сервиса по получению случайных пользователей
 class UsersServiceImpl implements UsersService {
   final Dio _dio;
@@ -13,9 +15,17 @@ class UsersServiceImpl implements UsersService {
   // Получить список пользователей, возможна пагинация
   @override
   Future<List<RandomUser>> getUsers({int page = 1, int pageSize = 50}) async {
-    final response = await _dio.get<String>('?page=$page&results=$pageSize&seed=abc');
+    final response = await _dio.get<String>('', queryParameters: {
+      'page': '$page',
+      'results': '$pageSize',
+      'seed': 'abc'
+    });
 
-    final bodyJson = jsonDecode(response.data ?? '') as Map<String, dynamic>;
+    final data = response.data;
+    if (data == null) {
+      throw Exception('Response is null');
+    }
+    final bodyJson = jsonDecode(data) as Map<String, dynamic>;
 
     return [
       for (final user in bodyJson['results'])
