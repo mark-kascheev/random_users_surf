@@ -9,11 +9,12 @@ import 'package:random_users_surf/data/service/users_service_impl.dart';
 import 'package:random_users_surf/screen/login_screen/login_screen.dart';
 
 void main() {
-  final getIt = GetIt.instance;
-  getIt.registerSingleton<AppModel>(AppModel());
-  getIt.registerSingleton<AuthService>(AuthServiceImpl());
-  getIt.registerSingleton<UsersService>(UsersServiceImpl(
-      Dio(BaseOptions(baseUrl: baseUrl))));
+  GetIt.instance
+    ..registerSingleton<AppModel>(AppModel())
+    ..registerSingleton<AuthService>(AuthServiceImpl())
+    ..registerSingleton<UsersService>(UsersServiceImpl(
+      Dio(BaseOptions(baseUrl: baseUrl)),
+    ));
   runApp(const MyApp());
 }
 
